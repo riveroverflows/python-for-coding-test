@@ -7,7 +7,6 @@ second = numbers[n - 2]
 
 first_count = m // (k + 1) * k + m % (k + 1)
 result = first_count * first
-if m - first_count > 0:
-    result += (m - first_count) * second
+result += (m - first_count) * second
 
 print(result)
