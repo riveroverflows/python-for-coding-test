@@ -1,16 +1,26 @@
 def solution(n, lost, reserve):
-    reserve_only = set(reserve) - set(lost)
-    lost_only = set(lost) - set(reserve)
+    students = [0] * (n + 2)
+    for r in reserve:
+        students[r] += 1
+    for l in lost:
+        students[l] -= 1
 
-    for r in reserve_only:
-        front = r - 1
-        back = r + 1
-        if front in lost_only:
-            lost_only.remove(front)
-        elif back in lost_only:
-            lost_only.remove(back)
+    for i in range(1, n + 1):
+        if students[i] > 0:
+            front = i - 1
+            back = i + 1
+            if students[front] < 0:
+                students[front] += 1
+                students[i] -= 1
+            elif students[back] < 0:
+                students[back] += 1
+                students[i] -= 1
+    answer = 0
+    for s in students:
+        if s >= 0:
+            answer += 1
 
-    return n - len(lost_only)
+    return answer - 2
 
 
 if __name__ == "__main__":
