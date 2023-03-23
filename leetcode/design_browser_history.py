@@ -1,33 +1,25 @@
-class Node:
-    def __init__(self, value, prev=None, next_=None) -> None:
-        self.value = value
-        self.prev = prev
-        self.next_ = next_
-
-
 class BrowserHistory:
     def __init__(self, homepage: str):
-        self.current = Node(homepage)
+        self.history = [homepage]
+        self.current = 0
 
     def visit(self, url: str) -> None:
-        new_node = Node(url)
-        self.current.next_ = new_node
-        new_node.prev = self.current
-        self.current = new_node
+        if len(self.history) - 1 > self.current:
+            self.history[self.current + 1:] = []
+        self.history.append(url)
+        self.current += 1
 
     def back(self, steps: int) -> str:
-        for _ in range(steps):
-            if self.current.prev is None:
-                break
-            self.current = self.current.prev
-        return self.current.value
+        self.current -= steps
+        if self.current < 0:
+            self.current = 0
+        return self.history[self.current]
 
     def forward(self, steps: int) -> str:
-        for _ in range(steps):
-            if self.current.next_ is None:
-                break
-            self.current = self.current.next_
-        return self.current.value
+        self.current += steps
+        if self.current > len(self.history) - 1:
+            self.current = len(self.history) - 1
+        return self.history[self.current]
 
 
 browser_history = BrowserHistory("esgriv.com")
