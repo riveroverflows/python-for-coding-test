@@ -7,6 +7,8 @@ class Solution:
                 stack.append(char)
                 continue
             if char in [')', '}', ']']:
+                if not stack:
+                    return False
                 pop = stack.pop()
                 if char == ')' and pop != '(':
                     return False
@@ -20,3 +22,4 @@ class Solution:
 print(Solution.is_valid(s="()"))
 print(Solution.is_valid(s="()[]{}"))
 print(Solution.is_valid(s="(]"))
+print(Solution.is_valid(s="{(([]))[]}"))
