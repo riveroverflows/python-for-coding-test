@@ -1,20 +1,18 @@
-def two_sum(nums: list[int], target: int) -> bool:
-    # 오름차순 정렬
-    # left: 0 right: nums 마지막 인덱스
-    # left + right == target: return
-    # left + right > target: right--
-    # left + right < target: left++
-    right = len(nums) - 1
-    left = 0
-    nums.sort()
-    while left != right:
-        if nums[left] + nums[right] > target:
-            right -= 1
-            continue
-        if nums[left] + nums[right] < target:
-            left += 1
-            continue
-        if nums[left] + nums[right] == target:
+from typing import List
+
+
+def two_sum(nums: List[int], target: int) -> bool:
+    nums_dict = dict()
+    for i, num in enumerate(nums):
+        nums_dict[num] = i
+
+    for i, num in enumerate(nums):
+        need = target - num
+        need_index = nums_dict.get(need, None)
+        i_index = nums_dict.get(num)
+        if num == need and nums.count(num) == 2:
+            return True
+        if need_index and need_index != i_index:
             return True
     return False
 
@@ -24,3 +22,5 @@ print(two_sum([2, 1, 5, 7], 4))
 print(two_sum([2, 7, 11, 15], 9))
 print(two_sum([3, 2, 4], 6))
 print(two_sum([3, 3], 6))
+print(two_sum([3, 5, 2, 2, 3, 9], 10))
+print(two_sum([3, 5, 2, 2, 1, 9], 10))
