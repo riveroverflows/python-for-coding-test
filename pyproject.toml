@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "python-for-coding-test"
+version = "0.1.0"
+description = ""
+authors = ["KIM_MINJU29 <kim_minju29@eland.co.kr>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
