@@ -3,34 +3,26 @@ import copy
 
 def solution(rc, operations):
     def rotate(matrix):
-        copied = copy.deepcopy(matrix)
         row_len = len(matrix)
         col_len = len(matrix[0])
-        news = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        start_r, start_c = 0, 0
-        start_v = matrix[start_r][start_c]
+        copied = copy.deepcopy(matrix)
 
-        for i in {0, row_len - 1}:
-            for j in range(col_len):
-                copied[i][j] = -1
-        for i in {0, col_len - 1}:
-            for j in range(row_len):
-                copied[j][i] = -1
+        # 첫행
+        for i in range(col_len - 1):
+            copied[0][i + 1] = matrix[0][i]
 
-        def is_valid(r, c):
-            return 0 <= r < row_len and 0 <= c < col_len and copied[r][c] == -1
+        # 마지막행
+        for i in range(col_len - 1, 0, -1):
+            copied[row_len - 1][i - 1] = matrix[row_len - 1][i]
 
-        def dfs(r, c, v):
-            for dr, dc in news:
-                next_r = r + dr
-                next_c = c + dc
-                if is_valid(next_r, next_c):
-                    if copied[next_r][next_c] == -1:
-                        copied[next_r][next_c] = v
-                        next_v = matrix[next_r][next_c]
-                        dfs(next_r, next_c, next_v)
+        # 첫번째 열
+        for i in range(row_len - 1, 0, -1):
+            copied[i - 1][0] = matrix[i][0]
 
-        dfs(start_r, start_c, start_v)
+        # 마지막 열
+        for i in range(row_len - 1):
+            copied[i + 1][col_len - 1] = matrix[i][col_len - 1]
+
         return copied
 
     def shift_row(matrix):
