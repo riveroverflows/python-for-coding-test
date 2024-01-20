@@ -1,13 +1,14 @@
+import itertools
 from typing import List
 
 
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        results = []
+        answers = []
 
         def backtrack(start, curr):
             if len(curr) == k:
-                results.append(curr[:])
+                answers.append(curr[:])
                 return
 
             for i in range(start, n + 1):
@@ -16,9 +17,10 @@ class Solution:
                 curr.pop()
 
         backtrack(1, [])
-        return results
+        return answers
 
 
 if __name__ == "__main__":
-    s = Solution()
-    print(s.combine(n=4, k=2))
+    solution = Solution()
+    print(solution.combine(5, 3))
+    print(list(itertools.combinations([1, 2, 3, 4, 5], 3)))
