@@ -2,6 +2,26 @@ import sys
 from collections import deque, Counter
 from itertools import combinations
 
+
+def my_combinations(iterable, k):
+    results = []
+
+    combinations(iterable, k)
+
+    def backtrack(start, curr):
+        if len(curr) == k:
+            results.append(curr[:])
+            return
+
+        for i in range(start, len(iterable)):
+            curr.append(iterable[i])
+            backtrack(i + 1, curr)
+            curr.pop()
+
+    backtrack(0, [])
+    return results
+
+
 input = sys.stdin.readline
 n, m = map(int, input().split())
 board = [list(map(int, input().split())) for _ in range(n)]
@@ -23,13 +43,13 @@ def bfs():
     queue = deque(viruses)
 
     while queue:
-        r, c = queue.popleft()
-        for dr, dc in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
-            next_r, next_c = r + dr, c + dc
-            if 0 <= next_r < n and 0 <= next_c < m:
-                if copied_board[next_r][next_c] == 0:
-                    copied_board[next_r][next_c] = 2
-                    queue.append((next_r, next_c))
+        cr, cc = queue.popleft()
+        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            nr, nc = cr + dr, cc + dc
+            if 0 <= nr < n and 0 <= nc < m:
+                if copied_board[nr][nc] == 0:
+                    copied_board[nr][nc] = 2
+                    queue.append((nr, nc))
 
     count = Counter([])
     for row in copied_board:
@@ -37,7 +57,7 @@ def bfs():
         answer = max(answer, count[0])
 
 
-for new_wall in combinations(empty_spaces, 3):
+for new_wall in my_combinations(empty_spaces, 3):
     for r, c in new_wall:
         board[r][c] = 1
     bfs()
