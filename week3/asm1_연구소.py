@@ -6,8 +6,6 @@ from itertools import combinations
 def my_combinations(iterable, k):
     results = []
 
-    combinations(iterable, k)
-
     def backtrack(start, curr):
         if len(curr) == k:
             results.append(curr[:])
