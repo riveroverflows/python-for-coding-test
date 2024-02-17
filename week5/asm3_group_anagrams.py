@@ -5,18 +5,18 @@ class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         answer = {}
         for s in strs:
-            str_set = sorted(list(s))
-            set_to_str = str(str_set)
-            if set_to_str in answer:
-                el = answer[set_to_str]
+            sorted_s = sorted(list(s))
+            sorted_key = str(sorted_s)
+            if sorted_key in answer:
+                el = answer[sorted_key]
                 el.append(s)
-                answer[set_to_str] = el
+                answer[sorted_key] = el
             else:
-                answer[set_to_str] = [s]
+                answer[sorted_key] = [s]
         return list(answer.values())
 
 
 if __name__ == "__main__":
     solution = Solution()
-    # print(solution.groupAnagrams(strs=["eat", "tea", "tan", "ate", "nat", "bat"]))
+    print(solution.groupAnagrams(strs=["eat", "tea", "tan", "ate", "nat", "bat"]))
     print(solution.groupAnagrams(strs=["ddddddddddg", "dgggggggggg"]))
