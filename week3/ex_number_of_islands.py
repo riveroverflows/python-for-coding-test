@@ -8,26 +8,27 @@ class Solution:
     """
 
     def numIslands(self, grid: List[List[str]]) -> int:
-        row_len, col_len = len(grid), len(grid[0])
-        visited = [[False] * col_len for _ in range(row_len)]
+        rl, cl = len(grid), len(grid[0])
+        visited = set()
 
         def bfs(r, c):
             queue = deque()
             queue.append((r, c))
-            visited[r][c] = True
+            visited.add((r, c))
+
             while queue:
                 cr, cc = queue.popleft()
-                for dr, dc in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                     nr, nc = cr + dr, cc + dc
-                    if 0 <= nr < row_len and 0 <= nc < col_len and not visited[nr][nc] and grid[nr][nc] == "1":
+                    if 0 <= nr < rl and 0 <= nc < cl and grid[nr][nc] == "1" and (nr, nc) not in visited:
                         queue.append((nr, nc))
-                        visited[nr][nc] = True
+                        visited.add((nr, nc))
 
         answer = 0
-        for r in range(row_len):
-            for c in range(col_len):
-                if grid[r][c] == "1" and not visited[r][c]:
-                    bfs(r, c)
+        for out_r in range(rl):
+            for out_c in range(cl):
+                if grid[out_r][out_c] == "1" and (out_r, out_c) not in visited:
+                    bfs(out_r, out_c)
                     answer += 1
 
         return answer
