@@ -3,37 +3,35 @@ from typing import List
 
 
 class Solution:
+    """
+    https://leetcode.com/problems/shortest-path-in-binary-matrix/
+    """
+
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
         n = len(grid)
-        visited = [[False] * n for _ in range(n)]
-        directions = [(1, 1), (-1, 1), (1, -1), (-1, -1), (0, 1), (1, 0), (-1, 0), (0, -1)]
+        visited = set()
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+        answer = -1
 
         def bfs(r, c, d):
-            q = deque()
-            q.append((r, c, d))
-            visited[r][c] = True
+            queue = deque()
+            queue.append((r, c, d))
+            visited.add((r, c))
 
-            next_d = 0
-            while q:
-                cur_r, cur_c, cur_d = q.popleft()
-                if (cur_r, cur_c) == (n - 1, n - 1):
-                    return cur_d
-                next_d = cur_d + 1
-
+            while queue:
+                cr, cc, cd = queue.popleft()
+                if (cr, cc) == (n - 1, n - 1):
+                    return cd
                 for dr, dc in directions:
-                    next_r = cur_r + dr
-                    next_c = cur_c + dc
-                    if 0 <= next_r < n and 0 <= next_c < n:
-                        if grid[next_r][next_c] == 0 and not visited[next_r][next_c]:
-                            q.append((next_r, next_c, next_d))
-                            visited[next_r][next_c] = True
-
-            if (r, c) != (n - 1, n - 1):
-                return -1
-            return next_d
+                    nr, nc = cr + dr, cc + dc
+                    if 0 <= nr < n and 0 <= nc < n and not grid[nr][nc] and (nr, nc) not in visited:
+                        queue.append((nr, nc, cd + 1))
+                        visited.add((nr, nc))
+            return -1
 
         if grid[0][0] or grid[n - 1][n - 1]:
-            return -1
+            return answer
+
         return bfs(0, 0, 1)
 
 
