@@ -3,8 +3,8 @@ def solution(n, arr1, arr2):
     for i, j in zip(arr1, arr2):
         number = bin(i | j)[2:]
         number = number.zfill(n)
-        number = number.replace('1', '#')
-        number = number.replace('0', ' ')
+        number = number.replace("1", "#")
+        number = number.replace("0", " ")
         answer.append(number)
     return answer
 

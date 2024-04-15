@@ -1,8 +1,8 @@
 def solution(n, t, m, p):
     # n: 진법         t: 구할 숫자 개수
     # m: 참가 인원     p: 순서
-    answer = ''
-    digits = ''
+    answer = ""
+    digits = ""
     for i in range(t * m):
         digits += convert(i, n)
     i = p - 1
@@ -13,10 +13,10 @@ def solution(n, t, m, p):
 
 
 def convert(n, base):
-    digits = '0123456789ABCDEF'
-    reversed_mod = ''
+    digits = "0123456789ABCDEF"
+    reversed_mod = ""
     if n == 0:
-        return '0'
+        return "0"
 
     while n > 0:
         n, mod = divmod(n, base)

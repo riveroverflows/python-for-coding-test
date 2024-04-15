@@ -12,5 +12,5 @@ for _ in range(n):
 
 for i in grid:
     for j in i:
-        print(j, end=' ')
+        print(j, end=" ")
     print()

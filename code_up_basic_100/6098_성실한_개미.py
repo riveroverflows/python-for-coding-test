@@ -31,5 +31,5 @@ while x < 10 and y < 10:
 
 for i in grid:
     for j in i:
-        print(j, end=' ')
+        print(j, end=" ")
     print()

@@ -12,7 +12,7 @@ class TreeNode:
 
 
 class Solution:
-    def lowest_common_ancestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode'):
+    def lowest_common_ancestor(self, root: "TreeNode", p: "TreeNode", q: "TreeNode"):
         if root is None:
             return None
 
