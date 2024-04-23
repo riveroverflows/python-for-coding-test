@@ -19,7 +19,6 @@ for r in range(n):
 
 answer = -inf
 directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-visited = set()
 
 
 def bfs(new_walls):
